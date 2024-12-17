@@ -1,0 +1,5 @@
+forge-std/=lib/forge-std/src/
+contracts/=src/contracts/
+@openzeppelin/=src/node_modules/@openzeppelin/
+solady/=src/node_modules/solady/
+ds-test/=src/node_modules/ds-test/src/
