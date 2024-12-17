@@ -8,7 +8,7 @@ import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/ut
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-import {ITokenWars} from "./interfaces/ITokenWars.sol";
+import {IWow} from "./interfaces/IWow.sol";
 import {INonfungiblePositionManager} from "./interfaces/INonfungiblePositionManager.sol";
 import {IUniswapV3Pool} from "./interfaces/IUniswapV3Pool.sol";
 import {ISwapRouter} from "./interfaces/ISwapRouter.sol";
@@ -16,7 +16,7 @@ import {IProtocolRewards} from "./interfaces/IProtocolRewards.sol";
 import {IWETH} from "./interfaces/IWETH.sol";
 import {BondingCurve} from "./BondingCurve.sol";
 
-contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGuardUpgradeable, IERC721Receiver {
+contract Wow is IWow, Initializable, ERC20Upgradeable, ReentrancyGuardUpgradeable, IERC721Receiver {
     uint256 public constant MAX_TOTAL_SUPPLY = 1_000_000_000e18; // 1B tokens
     uint256 internal constant PRIMARY_MARKET_SUPPLY = 800_000_000e18; // 800M tokens
     uint256 internal constant SECONDARY_MARKET_SUPPLY = 200_000_000e18; // 200M tokens
@@ -62,7 +62,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
         swapRouter = _swapRouter;
     }
 
-    /// @notice Initializes a new TokenWars token
+    /// @notice Initializes a new Wow token
     /// @param _tokenCreator The address of the token creator
     /// @param _platformReferrer The address of the platform referrer
     /// @param _bondingCurve The address of the bonding curve module
@@ -198,7 +198,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
             }
         }
 
-        emit TokenWarsTokenBuy(
+        emit WowTokenBuy(
             msg.sender,
             recipient,
             orderReferrer,
@@ -270,7 +270,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
             _handleSecondaryRewards();
         }
 
-        emit TokenWarsTokenSell(
+        emit WowTokenSell(
             msg.sender,
             recipient,
             orderReferrer,
@@ -381,13 +381,13 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
 
     /// @dev Overrides ERC20's _update function to
     ///      - Prevent transfers to the pool if the market has not graduated.
-    ///      - Emit the superset `TokenWarsTokenTransfer` event with each ERC20 transfer.
+    ///      - Emit the superset `WowTokenTransfer` event with each ERC20 transfer.
     function _update(address from, address to, uint256 value) internal virtual override {
         if (marketType == MarketType.BONDING_CURVE && to == poolAddress) revert MarketNotGraduated();
 
         super._update(from, to, value);
 
-        emit TokenWarsTokenTransfer(from, to, value, balanceOf(from), balanceOf(to), totalSupply());
+        emit WowTokenTransfer(from, to, value, balanceOf(from), balanceOf(to), totalSupply());
     }
 
     /// @dev Validates a bonding curve buy order and if necessary, recalculates the order data if the size is greater than the remaining supply
@@ -536,7 +536,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
         // Mint the liquidity position to this contract and store the token id.
         (lpTokenId, , , ) = INonfungiblePositionManager(nonfungiblePositionManager).mint(params);
 
-        emit TokenWarsMarketGraduated(address(this), poolAddress, ethLiquidity, SECONDARY_MARKET_SUPPLY, lpTokenId, marketType);
+        emit WowMarketGraduated(address(this), poolAddress, ethLiquidity, SECONDARY_MARKET_SUPPLY, lpTokenId, marketType);
     }
 
     /// @dev Handles calculating and depositing fees to an escrow protocol rewards contract
@@ -573,7 +573,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
 
         IProtocolRewards(protocolRewards).depositBatch{value: totalFee}(recipients, amounts, reasons, "");
 
-        emit TokenWarsTokenFees(
+        emit WowTokenFees(
             tokenCreator,
             platformReferrer,
             _orderReferrer,
@@ -605,7 +605,7 @@ contract TokenWars is ITokenWars, Initializable, ERC20Upgradeable, ReentrancyGua
         rewards = _transferRewards(token0, totalAmountToken0, rewards);
         rewards = _transferRewards(token1, totalAmountToken1, rewards);
 
-        emit TokenWarsTokenSecondaryRewards(rewards);
+        emit WowTokenSecondaryRewards(rewards);
 
         return rewards;
     }

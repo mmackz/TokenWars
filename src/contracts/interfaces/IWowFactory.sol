@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.23;
 
-interface ITokenWarsFactory {
-    /// @notice Emitted when a new TokenWars token is created
+interface IWowFactory {
+    /// @notice Emitted when a new Wow token is created
     /// @param factoryAddress The address of the factory that created the token
     /// @param tokenCreator The address of the creator of the token
     /// @param platformReferrer The address of the platform referrer
@@ -13,7 +13,7 @@ interface ITokenWarsFactory {
     /// @param symbol The symbol of the token
     /// @param tokenAddress The address of the token
     /// @param poolAddress The address of the pool
-    event TokenWarsTokenCreated(
+    event WowTokenCreated(
         address indexed factoryAddress,
         address indexed tokenCreator,
         address platformReferrer,
@@ -26,7 +26,7 @@ interface ITokenWarsFactory {
         address poolAddress
     );
 
-    /// @notice Deploys a TokenWars ERC20 token
+    /// @notice Deploys a Wow ERC20 token
     /// @param _tokenCreator The address of the token creator
     /// @param _platformReferrer The address of the platform referrer
     /// @param _tokenURI The ERC20z token URI

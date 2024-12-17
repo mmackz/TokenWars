@@ -7,10 +7,10 @@ import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/ut
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {ERC1967Utils} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol";
 
-import {ITokenWarsFactory} from "./interfaces/ITokenWarsFactory.sol";
-import {TokenWars} from "./TokenWars.sol";
+import {IWowFactory} from "./interfaces/IWowFactory.sol";
+import {Wow} from "./Wow.sol";
 
-contract TokenWarsFactoryImpl is ITokenWarsFactory, UUPSUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
+contract WowFactoryImpl is IWowFactory, UUPSUpgradeable, ReentrancyGuardUpgradeable, OwnableUpgradeable {
     address public immutable tokenImplementation;
     address public immutable bondingCurve;
 
@@ -19,7 +19,7 @@ contract TokenWarsFactoryImpl is ITokenWarsFactory, UUPSUpgradeable, ReentrancyG
         bondingCurve = _bondingCurve;
     }
 
-    /// @notice Creates a TokenWars token with bonding curve mechanics that graduates to Uniswap V3
+    /// @notice Creates a Wow token with bonding curve mechanics that graduates to Uniswap V3
     /// @param _tokenCreator The address of the token creator
     /// @param _platformReferrer The address of the platform referrer
     /// @param _tokenURI The ERC20z token URI
@@ -34,11 +34,11 @@ contract TokenWarsFactoryImpl is ITokenWarsFactory, UUPSUpgradeable, ReentrancyG
     ) external payable nonReentrant returns (address) {
         bytes32 salt = _generateSalt(_tokenCreator, _tokenURI);
 
-        TokenWars token = TokenWars(payable(Clones.cloneDeterministic(tokenImplementation, salt)));
+        Wow token = Wow(payable(Clones.cloneDeterministic(tokenImplementation, salt)));
 
         token.initialize{value: msg.value}(_tokenCreator, _platformReferrer, bondingCurve, _tokenURI, _name, _symbol);
 
-        emit TokenWarsTokenCreated(
+        emit WowTokenCreated(
             address(this),
             _tokenCreator,
             _platformReferrer,

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.23;
 
-interface ITokenWars {
+interface IWow {
     /// @notice Thrown when an operation is attempted with a zero address
     error AddressZero();
 
@@ -63,9 +63,9 @@ interface ITokenWars {
     }
 
     /// @notice Emitted when secondary rewards are distributed
-    event TokenWarsTokenSecondaryRewards(SecondaryRewards rewards);
+    event WowTokenSecondaryRewards(SecondaryRewards rewards);
 
-    /// @notice Emitted when a TokenWars token is bought
+    /// @notice Emitted when a Wow token is bought
     /// @param buyer The address of the buyer
     /// @param recipient The address of the recipient
     /// @param orderReferrer The address of the order referrer
@@ -77,7 +77,7 @@ interface ITokenWars {
     /// @param comment A comment associated with the transaction
     /// @param totalSupply The total supply of tokens after the buy
     /// @param marketType The type of market
-    event TokenWarsTokenBuy(
+    event WowTokenBuy(
         address indexed buyer,
         address indexed recipient,
         address indexed orderReferrer,
@@ -91,7 +91,7 @@ interface ITokenWars {
         MarketType marketType
     );
 
-    /// @notice Emitted when a TokenWars token is sold
+    /// @notice Emitted when a Wow token is sold
     /// @param seller The address of the seller
     /// @param recipient The address of the recipient
     /// @param orderReferrer The address of the order referrer
@@ -103,7 +103,7 @@ interface ITokenWars {
     /// @param comment A comment associated with the transaction
     /// @param totalSupply The total supply of tokens after the sell
     /// @param marketType The type of market
-    event TokenWarsTokenSell(
+    event WowTokenSell(
         address indexed seller,
         address indexed recipient,
         address indexed orderReferrer,
@@ -117,14 +117,14 @@ interface ITokenWars {
         MarketType marketType
     );
 
-    /// @notice Emitted when TokenWars tokens are transferred
+    /// @notice Emitted when Wow tokens are transferred
     /// @param from The address of the sender
     /// @param to The address of the recipient
     /// @param amount The amount of tokens transferred
     /// @param fromTokenBalance The token balance of the sender after the transfer
     /// @param toTokenBalance The token balance of the recipient after the transfer
     /// @param totalSupply The total supply of tokens after the transfer
-    event TokenWarsTokenTransfer(
+    event WowTokenTransfer(
         address indexed from,
         address indexed to,
         uint256 amount,
@@ -142,7 +142,7 @@ interface ITokenWars {
     /// @param platformReferrerFee The fee for the platform referrer
     /// @param orderReferrerFee The fee for the order referrer
     /// @param protocolFee The protocol fee
-    event TokenWarsTokenFees(
+    event WowTokenFees(
         address indexed tokenCreator,
         address indexed platformReferrer,
         address indexed orderReferrer,
@@ -160,7 +160,7 @@ interface ITokenWars {
     /// @param totalTokenLiquidity The total token liquidity in the pool
     /// @param lpPositionId The ID of the liquidity position
     /// @param marketType The type of market
-    event TokenWarsMarketGraduated(
+    event WowMarketGraduated(
         address indexed tokenAddress,
         address indexed poolAddress,
         uint256 totalEthLiquidity,
@@ -206,7 +206,7 @@ interface ITokenWars {
     ) external returns (uint256);
 
     /// @notice Allows a holder to burn their tokens after the market has graduated
-    /// @dev Emits a TokenWarsTokenTransfer event with the updated token balances and total supply
+    /// @dev Emits a WowTokenTransfer event with the updated token balances and total supply
     /// @param tokensToBurn The number of tokens to burn
     function burn(uint256 tokensToBurn) external;
 
