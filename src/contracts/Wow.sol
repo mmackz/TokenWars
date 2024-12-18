@@ -557,19 +557,19 @@ contract Wow is IWow, Initializable, ERC20Upgradeable, ReentrancyGuardUpgradeabl
 
         recipients[0] = tokenCreator;
         amounts[0] = tokenCreatorFee;
-        reasons[0] = bytes4(keccak256("TOKEN_WARS_CREATOR_FEE"));
+        reasons[0] = bytes4(keccak256("WOW_CREATOR_FEE"));
 
         recipients[1] = platformReferrer;
         amounts[1] = platformReferrerFee;
-        reasons[1] = bytes4(keccak256("TOKEN_WARS_PLATFORM_REFERRER_FEE"));
+        reasons[1] = bytes4(keccak256("WOW_PLATFORM_REFERRER_FEE"));
 
         recipients[2] = _orderReferrer;
         amounts[2] = orderReferrerFee;
-        reasons[2] = bytes4(keccak256("TOKEN_WARS_ORDER_REFERRER_FEE"));
+        reasons[2] = bytes4(keccak256("WOW_ORDER_REFERRER_FEE"));
 
         recipients[3] = protocolFeeRecipient;
         amounts[3] = protocolFee;
-        reasons[3] = bytes4(keccak256("TOKEN_WARS_PROTOCOL_FEE"));
+        reasons[3] = bytes4(keccak256("WOW_PROTOCOL_FEE"));
 
         IProtocolRewards(protocolRewards).depositBatch{value: totalFee}(recipients, amounts, reasons, "");
 
@@ -631,9 +631,9 @@ contract Wow is IWow, Initializable, ERC20Upgradeable, ReentrancyGuardUpgradeabl
                 amounts[2] = rewards.protocolAmountEth;
 
                 bytes4[] memory reasons = new bytes4[](3);
-                reasons[0] = bytes4(keccak256("TOKEN_WARS_CREATOR_SECONDARY_REWARD"));
-                reasons[1] = bytes4(keccak256("TOKEN_WARS_PLATFORM_REFERRER_SECONDARY_REWARD"));
-                reasons[2] = bytes4(keccak256("TOKEN_WARS_PROTOCOL_SECONDARY_REWARD"));
+                reasons[0] = bytes4(keccak256("WOW_CREATOR_SECONDARY_REWARD"));
+                reasons[1] = bytes4(keccak256("WOW_PLATFORM_REFERRER_SECONDARY_REWARD"));
+                reasons[2] = bytes4(keccak256("WOW_PROTOCOL_SECONDARY_REWARD"));
 
                 IProtocolRewards(protocolRewards).depositBatch{value: totalAmount}(recipients, amounts, reasons, "");
             } else {
