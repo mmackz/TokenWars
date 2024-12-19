@@ -6,7 +6,7 @@ import {WowFactoryImpl} from "contracts/WowFactoryImpl.sol";
 import {console} from "forge-std/console.sol";
 
 contract DeployToken is Script {
-    address constant FACTORY = 0x69f05497485633b9b7339337Cb92C0504382EBB8;
+    address constant FACTORY = 0x3CcB0909035e863Df35402C52867b716a426fbd5;
 
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");

@@ -14,7 +14,7 @@ contract DeployFactory is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Use existing implementation
-        address implementation = 0xdFf7598348Efea8FB30e41EF6d307264E2e922D4;
+        address implementation = 0x6ffDDfc68249B04469D3676fb864ee7b57AaB4B2;
 
         // Prepare initialization data
         bytes memory initData = abi.encodeWithSelector(

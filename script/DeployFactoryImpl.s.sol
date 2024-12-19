@@ -11,7 +11,7 @@ contract DeployFactory is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy factory using existing implementation addresses
-        address tokenImplementation = 0xa61Bd5579154E1bC24ADA708Bc03B712A52603F6;  // Wow implementation
+        address tokenImplementation = 0x125D935F8e6c8ce7743DE5509084f26C347bc627;  // Wow implementation
         address bondingCurve = 0x3d0476f0dcAA440c98864fe08E52fBE0257b509f;         // BondingCurve
 
         WowFactoryImpl factory = new WowFactoryImpl(
